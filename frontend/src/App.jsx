@@ -1,21 +1,25 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Landing from "./pages/Landing";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Upload from "./pages/Upload";
 import Library from "./pages/Library";
 import Player from "./pages/Player";
 import NotFound from "./pages/NotFound";
+import AuthBook from "./components/auth/AuthBook";
 
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
+        {/* Landing Page with Auth Overlays */}
+        <Route path="/" element={<Landing />}>
+          <Route path="login" element={<AuthBook />} />
+          <Route path="signup" element={<AuthBook />} />
+          <Route path="forgot-password" element={<AuthBook />} />
+        </Route>
+        
+        {/* Protected/App Routes */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/library" element={<Library />} />

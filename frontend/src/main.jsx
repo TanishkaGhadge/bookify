@@ -4,9 +4,12 @@ import { RouterProvider } from "react-router-dom";
 
 import "./styles/global.css";
 import { router } from "./router";
+import { BookProvider } from "./context/BookContext";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <BookProvider>
+      <RouterProvider router={router} />
+    </BookProvider>
   </StrictMode>
 );
