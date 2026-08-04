@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Coffee } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Hero() {
+  const { user } = useAuth();
+
   return (
     <section className="min-h-screen pt-20 flex items-center justify-center bg-[var(--background)] relative w-full overflow-hidden">
       
@@ -155,8 +158,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           className="mt-10 w-full flex justify-center"
         >
-          <Link to="/login" className="flex items-center justify-center bg-[var(--accent-primary)] text-[var(--surface)] px-20 py-7 rounded-full font-bold shadow-[0_6px_20px_rgba(110,78,58,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(110,78,58,0.5)] transition-all duration-300 text-3xl">
-            Get Started
+          <Link to={user ? "/dashboard" : "/login"} className="flex items-center justify-center bg-[var(--accent-primary)] text-[var(--surface)] px-20 py-7 rounded-full font-bold shadow-[0_6px_20px_rgba(110,78,58,0.4)] hover:-translate-y-1 hover:shadow-[0_8px_30px_rgba(110,78,58,0.5)] transition-all duration-300 text-3xl">
+            {user ? "Go to Dashboard" : "Get Started"}
           </Link>
         </motion.div>
       </div>

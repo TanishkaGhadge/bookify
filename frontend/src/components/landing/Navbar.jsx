@@ -1,12 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
-import { User, Moon, Sun, Library, LayoutDashboard } from "lucide-react";
+import { User, Moon, Sun, Library, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "../../hooks/useTheme";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
+  const { user, logout } = useAuth();
   const location = useLocation();
-  const isLandingPage = location.pathname === '/';
 
   return (
     <motion.nav
@@ -32,48 +33,68 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Navigation - Only show if NOT on landing page */}
-        {!isLandingPage && (
-          <div className="hidden lg:flex items-center gap-10 text-sm font-semibold text-[var(--text-muted)]">
-            <Link to="/library" className="flex items-center gap-2 transition-colors hover:text-[var(--text-main)]">
-              <Library size={18} />
-              Library
-            </Link>
-            <Link to="/dashboard" className="flex items-center gap-2 transition-colors hover:text-[var(--text-main)]">
-              <LayoutDashboard size={18} />
-              Dashboard
-            </Link>
-          </div>
-        )}
+        {/* Navigation */}
+        <div className="hidden lg:flex items-center gap-8 text-sm font-semibold text-[var(--text-muted)]">
+          {user ? (
+            <>
+              <Link 
+                to="/dashboard" 
+                className={`flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-300 ${location.pathname === '/dashboard' ? 'bg-[var(--accent-primary)] text-[var(--surface)] shadow-sm font-bold' : 'bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] hover:bg-[var(--accent-primary)]/20'}`}
+              >
+                <Sparkles size={18} />
+                <span>Create your Audiobook</span>
+              </Link>
+
+              <Link 
+                to="/library" 
+                className={`flex items-center gap-2 transition-colors ${location.pathname === '/library' ? 'text-[var(--accent-primary)] font-bold' : 'hover:text-[var(--text-main)]'}`}
+              >
+                <Library size={18} />
+                <span>Library</span>
+              </Link>
+
+              <Link 
+                to="/profile" 
+                className={`flex items-center gap-2 transition-colors ${location.pathname === '/profile' ? 'text-[var(--accent-primary)] font-bold' : 'hover:text-[var(--text-main)]'}`}
+              >
+                <User size={18} />
+                <span>Profile</span>
+              </Link>
+            </>
+          ) : (
+            <div className="text-[var(--text-muted)]/50 italic font-serif">Welcome to Bookify</div>
+          )}
+        </div>
 
         {/* Right Buttons */}
         <div className="flex items-center gap-4">
-          {!isLandingPage && (
-            <button 
-              onClick={toggleTheme}
-              className="p-3 rounded-2xl bg-[var(--background)] border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300 shadow-sm"
-              aria-label="Toggle Dark Mode"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
-          )}
+          <button 
+            onClick={toggleTheme}
+            className="p-3 rounded-2xl bg-[var(--background)] border border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--accent-primary)] hover:border-[var(--accent-primary)] transition-all duration-300 shadow-sm"
+            aria-label="Toggle Dark Mode"
+          >
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
 
-          {isLandingPage ? (
+          {user ? (
+            <button
+              onClick={() => logout()}
+              className="flex items-center justify-center gap-2 bg-[var(--surface)] border border-[var(--border-subtle)] text-[var(--text-main)] px-6 py-2.5 rounded-full font-bold shadow-sm hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
+            >
+              Logout
+            </button>
+          ) : (
             <Link
               to="/login"
-              className="flex items-center justify-center gap-3 bg-[var(--text-main)] text-[var(--surface)] px-12 py-5 rounded-full font-bold text-2xl shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
+              className="flex items-center justify-center gap-3 bg-[var(--text-main)] text-[var(--surface)] px-8 py-3 rounded-full font-bold shadow-[var(--shadow-soft)] hover:-translate-y-0.5 hover:shadow-md transition-all duration-300"
             >
-              <User size={36} strokeWidth={2.5} />
+              <User size={20} strokeWidth={2.5} />
               Login
             </Link>
-          ) : (
-            <div className="flex items-center justify-center w-11 h-11 rounded-2xl bg-[var(--accent-primary)]/10 text-[var(--accent-primary)] border border-[var(--accent-primary)]/20">
-              <User size={20} />
-            </div>
           )}
         </div>
 
       </div>
     </motion.nav>
   );
-}
+}

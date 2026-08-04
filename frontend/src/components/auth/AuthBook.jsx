@@ -55,7 +55,7 @@ export default function AuthBook() {
         animate={{ y: 0, scale: 1, opacity: 1, rotateX: 0 }}
         exit={{ y: "30vh", scale: 0.7, opacity: 0, rotateX: 30 }}
         transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-        className="relative w-[90vw] max-w-[900px] aspect-[16/10] max-h-[85vh] [transform-style:preserve-3d] flex justify-center items-center z-10"
+        className="relative w-[95vw] max-w-[1400px] aspect-[16/10] max-h-[90vh] [transform-style:preserve-3d] flex justify-center items-center z-10"
       >
         
         {/* Right Half: Back Cover & Right Page (Static Base) */}
@@ -72,7 +72,7 @@ export default function AuthBook() {
             <div className="absolute left-0 w-12 h-full bg-gradient-to-r from-black/20 to-transparent pointer-events-none z-50"></div>
             
             {/* The actual right page content */}
-            <div className="w-full h-full p-8 md:p-12 overflow-y-auto custom-scrollbar relative z-10" style={{ backgroundImage: 'radial-gradient(circle, transparent 50%, rgba(200, 164, 90, 0.05) 150%)' }}>
+            <div className="w-full h-full pt-16 pb-12 pl-16 pr-12 overflow-y-auto custom-scrollbar relative z-10" style={{ backgroundImage: 'radial-gradient(circle, transparent 50%, rgba(200, 164, 90, 0.05) 150%)' }}>
               <AuthPages side="right" activePage={activePage} />
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function AuthBook() {
               {/* Inner Spine Shadow Left */}
               <div className="absolute right-0 w-12 h-full bg-gradient-to-l from-black/20 to-transparent pointer-events-none z-50"></div>
               
-              <div className="w-full h-full p-8 md:p-12 relative z-10 opacity-95" style={{ backgroundImage: 'radial-gradient(circle, transparent 50%, rgba(200, 164, 90, 0.05) 150%)' }}>
+              <div className="w-full h-full pt-16 pb-12 pl-12 pr-16 relative z-10 opacity-95" style={{ backgroundImage: 'radial-gradient(circle, transparent 50%, rgba(200, 164, 90, 0.05) 150%)' }}>
                 <AuthPages side="left" activePage={activePage} />
               </div>
             </div>

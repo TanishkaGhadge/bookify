@@ -7,6 +7,7 @@ import Library from "./pages/Library";
 import Player from "./pages/Player";
 import NotFound from "./pages/NotFound";
 import AuthBook from "./components/auth/AuthBook";
+import UpdatePassword from "./pages/UpdatePassword";
 
 export default function App() {
   return (
@@ -19,6 +20,8 @@ export default function App() {
           <Route path="forgot-password" element={<AuthBook />} />
         </Route>
         
+        <Route path="/update-password" element={<UpdatePassword />} />
+
         {/* Protected/App Routes */}
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/upload" element={<Upload />} />
